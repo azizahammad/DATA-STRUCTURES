@@ -1,0 +1,171 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct dll{
+    int data;
+    struct dll *prev,*next;
+};
+struct dll * create(struct dll *first)
+  {
+       struct dll *tail,*new;
+       int ch,value;
+       printf("enter the value:");
+       scanf("%d",&value);
+       do{
+           new=(struct dll *)malloc(sizeof(struct dll));
+           new->data=value;
+           new->prev=NULL;
+           new->next=NULL;
+           if(first=NULL)
+           {
+               first=new;
+               tail=new;
+           }
+           else
+           {
+               tail->next=new;
+               new->prev=tail;
+               tail=new;
+           }
+             printf("enter 1 for continue or 0 to stop");
+             scanf("%d",&ch);            
+      }while(ch==10);
+           return first;
+       
+  }
+   void display(struct dll *first)
+   {
+       struct dll *temp=first;
+       if(first=NULL)
+       {
+           printf("no list is created");
+           
+       }
+       else
+       {
+           while(temp->next!=NULL)
+           {
+               printf("%d",temp->data);
+               temp=temp->next;
+           }
+       }
+   }
+   struct dll *insert_beg(struct dll *first,int n)
+   {
+       struct dll *new,*temp;
+       new=(struct dll *)malloc(sizeof(struct dll));
+       new->data=n;
+       new->prev=NULL;
+       new->next=NULL;
+       if(first=NULL)
+       {
+           first=new;
+       }
+       else
+       {
+           new->next=first;
+           first->prev=new;
+           first=new;
+       }
+       return first;
+   }
+   struct dll* insert_end(struct dll *first,int n)
+   {
+       struct dll *new,*temp=first;
+       new=(struct dll *)malloc(sizeof(struct dll));
+       new->data=n;
+       new->prev=NULL;
+       new->next=NULL;
+       if(first=NULL)
+       {
+           first=new;
+       }
+       else
+       {
+           while(temp->next!=NULL)
+           {
+               temp=temp->next;
+           }
+           temp->next=new;
+           new->prev=temp;
+       }
+       return first;
+   }
+   struct dll * insertion_pos(struct dll * first,int n,int pos)
+   {
+       struct dll *temp=first,*new;
+       int i;
+       new=(struct dll *)malloc(sizeof(struct dll));
+       if(first=NULL)
+       {
+           first=new;
+       }
+       else
+       {
+           for(i=0;i<pos-1;i++)
+           {
+               temp=temp->next;
+           }
+           new->data=n;
+           new->next=temp->next;
+           temp->next->prev=new;
+           temp->next=new;
+           new->prev=temp;
+       }
+      return first;
+   }
+   struct dll* delete_begin(struct dll *first)
+   {
+       struct dll *temp;
+       
+       if(first=NULL)
+       {
+           printf("there is no list created");
+       }
+       else
+       { 
+          temp=first;
+          first=temp->next;
+          temp->next=NULL;
+          first->prev=NULL;
+          
+       }
+       return first;
+   }
+   struct dll* delete_end(struct dll *first)
+   {
+       struct dll *temp=first;
+       if(first=NULL)
+       {
+           printf("there is no node is created");
+       }
+       else
+       {
+          while(temp->next!=NULL) 
+          {
+              temp=temp->next;
+          }
+          
+       }
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   void main()
+   {
+       int z,choice;
+       struct dll *head=NULL;
+       printf("1:for creation,for display ");
+       scanf("%d",&choice);
+       switch(choice)
+       {
+           case 1:{
+                   head=create(head);
+                   display(head);
+           }
+       }
+   }
